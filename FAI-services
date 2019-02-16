@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Switch vers les services
+ip link set dev eth0 up
+# Interco
+ip link set dev eth1 up
+
+# Services
+ip a add dev eth0 31.4.255.1/26
+# Interco
+ip a add dev eth1 31.4.255.71/32
+ip ro add 31.4.255.70 dev eth1
+ip ro add default via 31.4.255.70
+
+# DNS
+iptables -A FORWARD -s 31.4.255.128/25 -d 31.4.255.2/32 --protocol tcp --dport 53 -j ACCEPT
+# HTTP
+iptables -A FORWARD -s 31.4.255.128/25 -d 31.4.255.3/32 --protocol tcp --dport 80 -j ACCEPT
+# FTP
+iptables -A FORWARD -s 31.4.255.128/25 -d 31.4.255.4/32 --protocol tcp --dport 21 -j ACCEPT
+# DROP all by default
+iptables -A FORWARD -s 31.4.255.128/25 -j REJECT

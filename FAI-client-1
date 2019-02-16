@@ -1,0 +1,6 @@
+#!/bin/bash
+
+dhclient -nw -q eth0
+#ip link set dev eth0 up
+#ip a add dev eth0 192.168.139.2/25
+#ip route add default via 192.168.139.1

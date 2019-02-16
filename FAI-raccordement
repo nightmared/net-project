@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ip link set dev eth0 up
+ip link set dev eth1 up
+
+# Box de l'utilisateur
+ip a add dev eth0 31.4.255.129/25
+
+# lien au FAI d'interco
+ip a add dev eth1 31.4.255.91/32
+ip ro add 31.4.255.90 dev eth1
+ip ro add default via 31.4.255.90

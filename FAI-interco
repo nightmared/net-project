@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# FAI accès
+ip link set dev eth0 up
+# FAI services
+ip link set dev eth1 up
+# Interco
+#ip link set dev eth2 up
+
+# FAI de raccordement
+ip a add dev eth0 31.4.255.90/32
+ip ro add 31.4.255.91 dev eth0
+ip ro add 31.4.255.128/25 via 31.4.255.91
+
+# FAI services
+ip a add dev eth1 31.4.255.70/32
+ip ro add 31.4.255.71 dev eth1
+ip ro add 31.4.255.0/26 via 31.4.255.71
+
+# Interco upstream
+#ip a add dev eth2 31.4.255.50/28
+#ip route add default via 31.4.255.49

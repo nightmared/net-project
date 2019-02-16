@@ -1,0 +1,18 @@
+#!/bin/bash
+
+ip link set dev eth0 up
+ip link set dev eth1 up
+
+# Client
+ip a add dev eth0 192.168.139.1/25
+
+# Raccordement upstream
+ip a add dev eth1 31.4.255.130/25
+ip ro add default via 31.4.255.129
+
+# Création du fichier de leases dhcp
+touch /var/lib/dhcp/dhcpd.leases
+dhcpd -4 -q eth0
+
+# mise en place du NAT
+iptables -t nat -A POSTROUTING -s 192.168.139.0/25 -j MASQUERADE
