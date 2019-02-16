@@ -1,0 +1,6 @@
+Subnet du client: 192.168.139.0/25
+Subnet du FAI: 31.4.255.0/24
+    Organisé de la manière suivante:
+        FAI raccordement: 31.4.255.128/25
+        FAI interco: 31.4.255.64/26
+        FAI DMZ: 31.4.255.0/26
